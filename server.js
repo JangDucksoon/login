@@ -53,11 +53,13 @@ app.post("/login", (req, res) => {
         res.cookie("Authentication", accessToken, {
             httpOnly: true,
             path: "/",
+            sameSite: "lax",
         });
         res.cookie("Refresh", refreshToken, {
             httpOnly: true,
             path: "/",
             maxAge: 1 * 24 * 60 * 60 * 1000,
+            sameSite: "lax",
         });
 
         res.status(200).json(fakeUser);
@@ -157,6 +159,7 @@ app.post("/user/refresh-token", (req, res) => {
         res.cookie("Authentication", newAccessToken, {
             httpOnly: true,
             path: "/",
+            sameSite: "lax",
         });
         console.log(`good refresh - new access token ::: ${newAccessToken}`);
         res.status(200).send("New access token issued.");
